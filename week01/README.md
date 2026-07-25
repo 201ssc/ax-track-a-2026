@@ -4,7 +4,9 @@
 > 직접 개조한 버전입니다. **"주문한 메뉴의 금액을 손님이 직접 계산해 맞혀야
 > 주문이 완료되는"** 수학 게임으로 바꿨습니다.
 
-<img width="713" height="1656" alt="수학왕 분식" src="https://github.com/user-attachments/assets/5625ed48-ad31-4f8f-b6cd-6bf832e38d6d" />
+<p align="center">
+  <img width="320" alt="수학왕 분식 실행 화면" src="https://github.com/user-attachments/assets/5625ed48-ad31-4f8f-b6cd-6bf832e38d6d" />
+</p>
 
 ## 무엇을, 왜 바꿨나
 
