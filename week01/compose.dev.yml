@@ -1,0 +1,14 @@
+# 개발용 — 소스를 마운트하고 --reload로 실행해 코드 변경이 즉시 반영됩니다
+# docker compose -f compose.dev.yml up --build
+services:
+  api:
+    build: .
+    container_name: order-agent-dev
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - .:/app # 라이브 빌드 중 생성되는 agent/ llm/ tools/ 도 재빌드 없이 반영
+    command: uv run --no-sync uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload

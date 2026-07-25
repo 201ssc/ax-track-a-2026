@@ -1,0 +1,11 @@
+[project]
+name = "week01-order-agent"
+version = "0.1.0"
+description = "분식왕 주문 접수 AI 점원 — 1주차 라이브 빌드"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "litellm>=1.60",
+    "python-dotenv>=1.0",
+]

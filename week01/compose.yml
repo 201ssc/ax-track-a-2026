@@ -1,0 +1,11 @@
+# 기본 실행 — 이미지에 구운 코드 그대로 실행합니다
+# docker compose up --build
+services:
+  api:
+    build: .
+    container_name: order-agent
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false # v0.1 목 API는 키 없이도 동작합니다

@@ -1,0 +1,193 @@
+[
+  {
+    "id": "gimbap",
+    "name": "김밥",
+    "category": "김밥",
+    "price": 3500,
+    "options": [
+      { "name": "치즈 추가", "price": 500 },
+      { "name": "참치 추가", "price": 1000 }
+    ]
+  },
+  {
+    "id": "tuna-gimbap",
+    "name": "참치김밥",
+    "category": "김밥",
+    "price": 4500,
+    "options": [
+      { "name": "치즈 추가", "price": 500 }
+    ]
+  },
+  {
+    "id": "cheese-gimbap",
+    "name": "치즈김밥",
+    "category": "김밥",
+    "price": 4500,
+    "options": []
+  },
+  {
+    "id": "beef-gimbap",
+    "name": "소고기김밥",
+    "category": "김밥",
+    "price": 5000,
+    "options": [
+      { "name": "치즈 추가", "price": 500 }
+    ]
+  },
+  {
+    "id": "kimchi-gimbap",
+    "name": "김치김밥",
+    "category": "김밥",
+    "price": 4000,
+    "options": [
+      { "name": "치즈 추가", "price": 500 }
+    ]
+  },
+  {
+    "id": "nude-gimbap",
+    "name": "누드김밥",
+    "category": "김밥",
+    "price": 4500,
+    "options": []
+  },
+  {
+    "id": "tteokbokki",
+    "name": "떡볶이",
+    "category": "떡볶이",
+    "price": 4000,
+    "options": [
+      { "name": "치즈 추가", "price": 1000 },
+      { "name": "라면사리 추가", "price": 1000 },
+      { "name": "계란 추가", "price": 500 }
+    ]
+  },
+  {
+    "id": "cheese-tteokbokki",
+    "name": "치즈떡볶이",
+    "category": "떡볶이",
+    "price": 5000,
+    "options": [
+      { "name": "라면사리 추가", "price": 1000 }
+    ]
+  },
+  {
+    "id": "rose-tteokbokki",
+    "name": "로제떡볶이",
+    "category": "떡볶이",
+    "price": 5500,
+    "options": [
+      { "name": "치즈 추가", "price": 1000 }
+    ]
+  },
+  {
+    "id": "sundae",
+    "name": "순대",
+    "category": "분식",
+    "price": 4000,
+    "options": [
+      { "name": "내장 추가", "price": 1000 }
+    ]
+  },
+  {
+    "id": "assorted-twigim",
+    "name": "모둠튀김",
+    "category": "분식",
+    "price": 4000,
+    "options": []
+  },
+  {
+    "id": "eomuk",
+    "name": "어묵꼬치",
+    "category": "분식",
+    "price": 1000,
+    "options": []
+  },
+  {
+    "id": "ramyeon",
+    "name": "라면",
+    "category": "면",
+    "price": 4000,
+    "options": [
+      { "name": "치즈 추가", "price": 500 },
+      { "name": "계란 추가", "price": 500 },
+      { "name": "떡 추가", "price": 1000 }
+    ]
+  },
+  {
+    "id": "jjolmyeon",
+    "name": "쫄면",
+    "category": "면",
+    "price": 5500,
+    "options": [
+      { "name": "계란 추가", "price": 500 }
+    ]
+  },
+  {
+    "id": "janchi-guksu",
+    "name": "잔치국수",
+    "category": "면",
+    "price": 5000,
+    "options": []
+  },
+  {
+    "id": "udon",
+    "name": "우동",
+    "category": "면",
+    "price": 5000,
+    "options": [
+      { "name": "튀김 추가", "price": 1000 }
+    ]
+  },
+  {
+    "id": "kimchi-bokkeumbap",
+    "name": "김치볶음밥",
+    "category": "식사",
+    "price": 6000,
+    "options": [
+      { "name": "치즈 추가", "price": 1000 },
+      { "name": "계란후라이 추가", "price": 500 }
+    ]
+  },
+  {
+    "id": "omurice",
+    "name": "오므라이스",
+    "category": "식사",
+    "price": 6500,
+    "options": []
+  },
+  {
+    "id": "tuna-mayo-deopbap",
+    "name": "참치마요덮밥",
+    "category": "식사",
+    "price": 6000,
+    "options": []
+  },
+  {
+    "id": "jeyuk-deopbap",
+    "name": "제육덮밥",
+    "category": "식사",
+    "price": 7000,
+    "options": []
+  },
+  {
+    "id": "donkatsu",
+    "name": "돈까스",
+    "category": "식사",
+    "price": 7500,
+    "options": []
+  },
+  {
+    "id": "cola",
+    "name": "콜라",
+    "category": "음료",
+    "price": 2000,
+    "options": []
+  },
+  {
+    "id": "cider",
+    "name": "사이다",
+    "category": "음료",
+    "price": 2000,
+    "options": []
+  }
+]
