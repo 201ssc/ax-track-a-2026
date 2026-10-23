@@ -2,9 +2,20 @@
 
 AI 서비스 엔지니어링 과정에서 [가계부 account-book](https://github.com/2026-ai-service-engineering-a/account-book)의 실제 처리 흐름과 개발 규칙을 참고해 만든 개인용 습관 다이어리입니다. 기존에 만든 다이어리 화면과 기록 규칙에 Node.js 서버, SQLite 저장, Gemini 루틴 관리를 연결했습니다.
 
-루틴 추가·삭제를 자연어로 요청하고 변경 내용을 확인한 뒤 저장할 수 있습니다. 처음 실행하면 최근 2주 가상 기록이 생성되며, 실제 API 키와 개인 기록은 저장소에 포함하지 않습니다.
+루틴 추가·삭제를 자연어로 요청하고 변경 내용을 확인한 뒤 저장할 수 있습니다. 처음 실행하면 최근 2주 가상 기록이 생성되며, 실제 API 키와 개인 DB는 저장소에 포함하지 않습니다.
 
-<img src="sample2/design/diary-preview.png" alt="가상 예시 기록을 표시한 습관 다이어리 홈 화면" width="390">
+| 오늘의 기록 | Gemini 채팅 |
+| :---: | :---: |
+| <img src="sample2/design/today.png" alt="날짜별 일정과 루틴 기록 현황" width="300"> | <img src="sample2/design/chat.png" alt="Gemini로 루틴 삭제를 요청하고 확인 후 반영한 화면" width="300"> |
+
+<details>
+<summary>화면 더 보기 — 기록 입력 · 리포트 · 항목 관리</summary>
+
+| 기록 입력 | 리포트 | 항목 관리 |
+| :---: | :---: | :---: |
+| <img src="sample2/design/record.png" alt="O/X와 하루 점수를 입력하는 기록 화면" width="200"> | <img src="sample2/design/report.png" alt="최근 7일 점수와 루틴 실천 현황" width="200"> | <img src="sample2/design/manage.png" alt="목차별 루틴 항목을 추가하고 관리하는 화면" width="200"> |
+
+</details>
 
 ## 실행하기
 
