@@ -1,0 +1,87 @@
+const {startTestServer,settled}=require('./server-fixture.cjs');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const assert=require('node:assert/strict');
+(async()=>{
+ let fixture=await startTestServer((await import('../model.mjs')).initialState);
+ const browser=await chromium.launch({headless:true,executablePath:process.env.BROWSER_EXECUTABLE});
+ const context=await browser.newContext({viewport:{width:1440,height:1050},timezoneId:'Asia/Seoul'}),page=await context.newPage();
+ const {initialState}=await import('../model.mjs');
+ await context.addInitScript(state=>{if(!localStorage.getItem('habit-diary-sample2:prototype:v1'))localStorage.setItem('habit-diary-sample2:prototype:v1',JSON.stringify(state));},initialState());
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(fixture.base+'/sample2/');
+ await page.getByRole('heading',{name:'오늘 하루는 어땠나요?'}).waitFor();
+ await page.screenshot({path:'/tmp/habit-sample2-desktop.png',fullPage:true});
+ const today=await page.locator('#selected-date').inputValue();
+ await page.locator('[data-action=expand][data-id=life]').click();await settled(page);
+ await page.locator('[data-action=question][data-id=floss]').click();await settled(page);
+ await page.getByLabel('X · 못 했어요',{exact:true}).check();await settled(page);
+ await page.getByRole('button',{name:/기록 저장|작성한 항목 저장/}).click();await settled(page);
+ assert.equal(await page.locator('[data-action=question][data-id=floss].done').count(),1);
+ assert.match(await page.locator('.routine-count').innerText(),/1/);
+ await page.locator('[data-action=question][data-id=floss]').click();await settled(page);
+ assert.equal(await page.getByLabel('X · 못 했어요',{exact:true}).isChecked(),true);
+ await page.getByLabel('O · 했어요',{exact:true}).check();await settled(page);
+ await page.getByRole('button',{name:/기록 저장|작성한 항목 저장/}).click();await settled(page);
+ await page.reload();
+ assert.match(await page.locator('.routine-count').innerText(),/1/);
+ // Submit partial survey, leaving earlier unanswered questions untouched.
+ await page.getByRole('button',{name:'전체 항목 기록하기'}).click();await settled(page);
+ assert.equal(await page.locator('#dialog .question-block').count(),11);
+ assert.equal(await page.locator('#dialog [name=answer-floss]').count(),0);
+ await page.locator('[name=answer-skin][value=X]').check();await settled(page);
+ await page.getByRole('button',{name:'작성한 항목 저장 ✓'}).click();await settled(page);
+ let saved=await fixture.read();
+ assert.equal(saved.days[today].answers.skin,'X');assert.equal(saved.days[today].answers.water,undefined);
+ // Backfill and maintain a historical snapshot.
+ await page.locator('[data-action=date-prev]').click();await settled(page);
+ const past=await page.locator('#selected-date').inputValue();
+ await page.getByRole('button',{name:'전체 항목 기록하기'}).click();await settled(page);
+ await page.locator('[name=answer-score][value="4"]').check();await settled(page);
+ await page.locator('input[data-answer=tomorrow]').fill('내일은 차분한 하루');
+ await page.locator('textarea[data-answer=worknote]').fill('늦었지만 하루를 돌아봤다. <script>안전한 글</script>');
+ await page.getByRole('button',{name:/기록 저장|작성한 항목 저장/}).click();await settled(page);
+ // Add group and all response types; reorder; archive an answered question.
+ await page.locator('[data-nav=manage]').click();await settled(page);
+ await page.getByRole('button',{name:'목차 추가',exact:true}).click();await settled(page);
+ await page.locator('[name=name]').fill('나의 저녁');await page.getByRole('button',{name:'저장 ✓',exact:true}).click();await settled(page);
+ await page.getByRole('button',{name:'＋ 항목 추가',exact:true}).click();await settled(page);
+ await page.locator('[name=title]').fill('오늘의 선택');await page.locator('[name=groupId]').selectOption({label:'나의 저녁'});await page.locator('[name=type]').selectOption('choice');
+ await page.locator('[name=option]').nth(0).fill('산책');await page.locator('[name=option]').nth(1).fill('휴식');await page.locator('[name=option]').nth(2).fill('산책');await page.getByRole('button',{name:'항목 추가 ✓',exact:true}).click();await settled(page);
+ assert.match(await page.locator('#form-error').innerText(),/중복/);
+ await page.locator('[name=option]').nth(2).fill('공부');await page.getByRole('button',{name:'항목 추가 ✓',exact:true}).click();await settled(page);
+ await page.getByLabel('치실 사용 항목 메뉴',{exact:true}).click();await settled(page);
+ await page.locator('.manage-row').filter({hasText:'치실 사용'}).getByRole('button',{name:'사용 중지',exact:true}).click();await settled(page);
+ saved=await fixture.read();
+ assert.equal(saved.days[today].answers.floss,'O');assert.equal(saved.questions.find(q=>q.id==='floss').active,false);
+ // Historical day still uses its old configuration, new group is absent.
+ await page.locator('[data-nav=today]').click();await settled(page);
+ assert.equal(await page.locator('.group-card').filter({hasText:'나의 저녁'}).count(),0);
+ await page.locator('[data-action=date-today]').click();await settled(page);
+ assert.equal(await page.locator('.group-card').filter({hasText:'나의 저녁'}).count(),1);
+ await page.locator('[data-action=expand][data-id=reflection]').click();await settled(page);
+ await page.locator('[data-action=group-survey][data-id=reflection]').click();await settled(page);
+ await page.locator('[name=answer-score][value="5"]').check();await settled(page);
+ await page.locator('[data-answer=tomorrow]').fill('오늘도 수고했다.');await page.getByRole('button',{name:/기록 저장|작성한 항목 저장/}).click();await settled(page);
+ assert.equal(await page.locator('.group-card.complete').filter({hasText:'오늘의 회고'}).count(),1);
+ await page.locator('[data-nav=report]').click();await settled(page);
+ assert.match(await page.locator('.stats-grid').innerText(),/4\.5/);
+ assert.match(await page.locator('.journal-entry').filter({hasText:'늦었지만'}).innerText(),/<script>/);
+ assert.equal(await page.locator('.journal-entry script').count(),0);
+ assert.equal(await page.locator('.journal-entry').filter({hasText:'내일은 차분한 하루'}).count(),0);
+ assert.equal(await page.locator('.journal-entry').filter({hasText:'오늘 집중한 일'}).count(),0);
+ await page.getByRole('button',{name:'최근 30일'}).click();await settled(page);assert.equal(await page.locator('.day-column').count(),30);
+ await page.screenshot({path:'/tmp/habit-sample2-report.png',fullPage:true});
+ await page.setViewportSize({width:390,height:844});
+ for(const view of ['today','report','manage']){await page.locator(`[data-nav=${view}]`).click();await settled(page);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true,`${view}: overflow`);await page.screenshot({path:`/tmp/habit-sample2-${view}-mobile.png`,fullPage:true});}
+ await page.locator('[data-nav=today]').click();await settled(page);await page.getByRole('button',{name:'전체 항목 기록하기'}).click();await settled(page);
+ assert.equal(await page.locator('#dialog').evaluate(el=>el.scrollWidth<=el.clientWidth),true);
+ await page.screenshot({path:'/tmp/habit-sample2-survey-mobile.png',fullPage:true});
+ // Storage failure preserves draft, and does not report a successful save.
+ await page.getByLabel('O · 했어요',{exact:true}).first().check();await settled(page);
+ await page.route('**/api/commands',route=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({code:'storage_error',message:'저장하지 못했어요. 입력은 남아 있어요.'})}));
+ await page.getByRole('button',{name:'작성한 항목 저장 ✓'}).click();await settled(page);
+ assert.equal(await page.locator('#dialog').evaluate(el=>el.open),true);assert.match(await page.locator('#storage-alert').innerText(),/저장하지 못/);
+ assert.deepEqual(errors,[]);
+ console.log('PASS: O/X, partial submission, editing, persistence, backfill, management, archive, completion, reports, escaping, mobile, storage failure.');
+ await context.close();await browser.close();await fixture.close();
+})().catch(e=>{console.error(e);process.exit(1)});

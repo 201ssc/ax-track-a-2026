@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff"><meta name="description" content="하루의 작은 루틴과 생각을 기록하는 나의 습관 다이어리">
+<title>하루의 결 · 습관 다이어리</title>
+<link rel="stylesheet" href="styles.css?v=f59d64e0da08"><script defer src="boot.js?v=f59d64e0da08"></script>
+</head>
+<body>
+<div class="app-shell">
+<header class="sidebar">
+<a class="brand" href="#today"><span class="brand-mark">결</span><span>하루의 결<small>MY DAILY JOURNAL</small></span></a>
+
+</header>
+<div class="main-shell">
+<header class="topbar"><span id="breadcrumb">나의 다이어리 / 오늘의 기록</span><span class="local-badge"><i></i> 예시 기록 포함</span></header>
+<div id="storage-alert" class="alert" hidden></div>
+<main id="main" tabindex="-1"><p class="load-state" role="status">다이어리를 불러오고 있어요.</p></main>
+<footer class="footer">작은 기록이 모여, 나다운 하루가 됩니다.<span>하루의 결</span></footer>
+</div>
+<nav class="bottom-nav" aria-label="주 메뉴">
+<a href="#today" data-nav="today"><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m7 8 1 1 2-2m3 1h4M7 13h2m4 0h4M7 17h2m4 0h4"/></svg></span> 오늘의 기록</a>
+<a href="#report" data-nav="report"><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v17h17M8 15v-4m5 4V7m5 8v-6"/></svg></span> 기록 리포트</a>
+<a href="#chat" data-nav="chat"><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 3v-3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M7 9h10M7 13h7"/></svg></span> 채팅</a>
+<a href="#manage" data-nav="manage"><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2" fill="white"/><circle cx="15" cy="12" r="2" fill="white"/><circle cx="9" cy="18" r="2" fill="white"/></svg></span> 항목 관리</a>
+</nav>
+</div>
+<dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<noscript>습관 기록을 사용하려면 JavaScript를 켜 주세요.</noscript>
+</body></html>
