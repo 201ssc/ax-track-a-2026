@@ -1,4 +1,4 @@
-# 하루의 결 · 습관 다이어리
+# AI를 활용한 하루 루틴 관리 서비스
 
 AI 서비스 엔지니어링 과정에서 [가계부 account-book](https://github.com/2026-ai-service-engineering-a/account-book)의 실제 처리 흐름과 개발 규칙을 참고해 만든 개인용 습관 다이어리입니다. 기존에 만든 다이어리 화면과 기록 규칙에 Node.js 서버, SQLite 저장, Gemini 루틴 관리를 연결했습니다.
 
