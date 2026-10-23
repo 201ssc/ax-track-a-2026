@@ -2,7 +2,7 @@
 
 AI 서비스 엔지니어링 과정에서 [가계부 account-book](https://github.com/2026-ai-service-engineering-a/account-book)의 실제 처리 흐름과 개발 규칙을 참고해 만든 개인용 습관 다이어리입니다. 기존에 만든 다이어리 화면과 기록 규칙에 Node.js 서버, SQLite 저장, Gemini 루틴 관리를 연결했습니다.
 
-현재 공유 대상은 **[`sample2/`](sample2/)** 입니다. 루틴 추가·삭제를 자연어로 요청하고 변경 내용을 확인한 뒤 저장할 수 있습니다. 처음 실행하면 최근 2주 가상 기록이 생성되며, 실제 API 키와 개인 기록은 저장소에 포함하지 않습니다.
+루틴 추가·삭제를 자연어로 요청하고 변경 내용을 확인한 뒤 저장할 수 있습니다. 처음 실행하면 최근 2주 가상 기록이 생성되며, 실제 API 키와 개인 기록은 저장소에 포함하지 않습니다.
 
 <img src="sample2/design/diary-preview.png" alt="가상 예시 기록을 표시한 습관 다이어리 홈 화면" width="390">
 
@@ -57,7 +57,7 @@ AGENT_TIMEOUT_SECONDS=10
 
 ## 가계부에서 참고한 부분
 
-가계부 원본을 복사해 서비스 이름만 바꾼 프로젝트가 아닙니다. 다이어리의 기존 JavaScript 기록 규칙을 유지하면서 다음 처리 원칙을 참고했습니다.
+가계부의 요청 처리 흐름과 개발 규칙을 다이어리에 적용했습니다.
 
 | 참고한 원칙 | 다이어리에서 적용한 부분 |
 | --- | --- |
@@ -68,7 +68,7 @@ AGENT_TIMEOUT_SECONDS=10
 | 설정·비밀키 분리 | `.env.example`만 공유, 실제 키는 서버에서만 사용 |
 | 규칙·계약·검증 문서화 | 인덱스에서 담당 규칙·관련 코드·완료 검사 연결 |
 
-가계부의 FastAPI/PostgreSQL·RAG·MCP 구성은 가져오지 않았습니다. 이 앱은 **기존 HTML/CSS/JavaScript + Node.js 단일 서버 + SQLite**입니다. [원본 분석과 비교](sample2/docs/reference-account-book.md)에서 분석한 버전과 코드 근거를 볼 수 있습니다.
+자세한 내용은 [가계부 참고 분석](sample2/docs/reference-account-book.md)에 정리했습니다.
 
 ## 문서와 검사
 
